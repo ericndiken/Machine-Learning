@@ -8,12 +8,12 @@ model_klasifikasi = MultinomialNB()  # Membuat objek model klasifikasi Naive Bay
 
 # Data contoh
 teks_email = [
-    "Penawaran Khusus dari Toko A: Diskon 50% Hari Ini!",
-    "Undangan Webinar: Belajar Pembelajaran Mesin dengan Dr. Budi",
-    "Klaim Hadiah Anda Sekarang!",
-    "Undangan Rapat Tim Minggu Ini dari Perusahaan XYZ",
-    "Investasi Menguntungkan: Peluang Terbatas dari Investasi Sejahtera",
-    "Perbarui Aplikasi Anda untuk Fitur Terbaru"
+    "Proses masuk baru ke X dari ChromeDesktop pada Windows",
+    "Buat Gajimu Bertumbuh hingga 16% per Tahun!",
+    "LAST CALL! Sisa 2 Hari Lagi SR019 Berakhir!",
+    "Selamat datang di TikTok",
+    "Peluang Aset Obligasi di Tengah Sentimen Suku Bunga The Fed",
+    "Kebijakan baru kami terkait Akun Google tidak aktif"
 ]
 label_spam = ["Spam", "Non-Spam", "Spam", "Non-Spam", "Spam", "Non-Spam"]
 
@@ -37,7 +37,7 @@ def filter_email():
 
 # Membuat jendela utama
 utama = tk.Tk()  # Membuat objek utama Tk, mewakili jendela utama aplikasi
-utama.title("Aplikasi Filter Email Spam")  # Menetapkan judul jendela utama
+utama.title("Aplikasi Filter Email Spam(ERIC_18120062)")  # Menetapkan judul jendela utama
 
 # Membuat label dan area teks untuk input email
 label_isi_email = tk.Label(utama, text="Masukkan Teks Email:")  # Membuat label
