@@ -1,0 +1,58 @@
+import tkinter as tk
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.naive_bayes import MultinomialNB
+
+# Inisialisasi dan latih model Naive Bayes
+vektorizer_tfidf = TfidfVectorizer()  # Membuat objek vektorizer (TF-IDF)
+model_klasifikasi = MultinomialNB()  # Membuat objek model klasifikasi Naive Bayes
+
+# Data contoh
+teks_email = [
+    "Penawaran Khusus dari Toko A: Diskon 50% Hari Ini!",
+    "Undangan Webinar: Belajar Pembelajaran Mesin dengan Dr. Budi",
+    "Klaim Hadiah Anda Sekarang!",
+    "Undangan Rapat Tim Minggu Ini dari Perusahaan XYZ",
+    "Investasi Menguntungkan: Peluang Terbatas dari Investasi Sejahtera",
+    "Perbarui Aplikasi Anda untuk Fitur Terbaru"
+]
+label_spam = ["Spam", "Non-Spam", "Spam", "Non-Spam", "Spam", "Non-Spam"]
+
+# Vektorisasi teks menggunakan TF-IDF
+matriks_fitur_tfidf = vektorizer_tfidf.fit_transform(teks_email)  # Melatih vektorizer dengan data email dan mengonversinya menjadi matriks TF-IDF
+
+# Latih model
+model_klasifikasi.fit(matriks_fitur_tfidf, label_spam)  # Melatih model Naive Bayes dengan matriks TF-IDF dan label yang sesuai
+
+# Fungsi untuk memfilter email
+def filter_email():
+    isi_email = kotak_isi_email.get("1.0", "end-1c")  # Mendapatkan teks email dari area teks
+    
+    # Vektorisasi teks menggunakan model TF-IDF yang sudah dilatih
+    vektor_email = vektorizer_tfidf.transform([isi_email])  # Mengonversi teks email menjadi vektor TF-IDF
+    
+    # Prediksi menggunakan model Naive Bayes
+    prediksi = model_klasifikasi.predict(vektor_email)  # Melakukan prediksi apakah email tersebut spam atau bukan
+    
+    label_hasil.config(text=f"Hasil: {prediksi[0]}")  # Menetapkan teks hasil prediksi pada label hasil
+
+# Membuat jendela utama
+utama = tk.Tk()  # Membuat objek utama Tk, mewakili jendela utama aplikasi
+utama.title("Aplikasi Filter Email Spam")  # Menetapkan judul jendela utama
+
+# Membuat label dan area teks untuk input email
+label_isi_email = tk.Label(utama, text="Masukkan Teks Email:")  # Membuat label
+label_isi_email.pack(pady=10)  # Menempatkan label pada jendela, memberikan padding (jarak)
+
+kotak_isi_email = tk.Text(utama, width=50, height=5)  # Menggunakan Text untuk membuat area teks dengan tinggi dan lebar tertentu
+kotak_isi_email.pack(pady=10, padx=10)  # Menempatkan area teks pada jendela, memberikan padding buat jarak antar kolom input dan batas jendela biar gk mepet
+
+# Membuat tombol dan menetapkannya ke fungsi filter_email
+tombol_filter = tk.Button(utama, text="Filter Email", command=filter_email)  # Membuat tombol
+tombol_filter.pack(pady=10)  # Menempatkan tombol pada jendela, memberikan padding
+
+# Membuat label untuk menampilkan hasil
+label_hasil = tk.Label(utama, text="Hasil: ")  # Membuat label hasil
+label_hasil.pack(pady=10)  # Menempatkan label hasil pada jendela, memberikan padding
+
+# Menjalankan jendela
+utama.mainloop()  # Memulai loop utama untuk menjalankan aplikasi dan menanggapi interaksi pengguna
